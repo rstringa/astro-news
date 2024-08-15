@@ -14,7 +14,7 @@ const query = `
         }
         featuredImage {
           node {
-            sourceUrl
+            sourceUrl(size: LARGE)
           }
         }
       }
