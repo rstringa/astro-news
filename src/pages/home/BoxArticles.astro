@@ -49,7 +49,7 @@ const { first, last, type="card" } = Astro.props;
           </a>
           ) : (
           <Image
-              src={fallback}
+              src={fallback.src}
               width={fallback.width}
               height={fallback.height}
               alt="Fallback"
@@ -92,7 +92,7 @@ const { first, last, type="card" } = Astro.props;
                     />
                     ) : (
                     <Image
-                        src={fallback}
+                        src={fallback.src}
                         width={fallback.width}
                         height={fallback.height}
                         alt="Fallback"
