@@ -39,10 +39,10 @@ import { Icon } from "astro-icon/components";
       overflow: clip;
     }
     & .main-menu {
-      ul {
+      & ul {
         display: flex;
       }
-      a {
+      & a {
         color: #002e5b;
         font-weight: 500;
         padding: 39px 19px;
@@ -98,7 +98,7 @@ import { Icon } from "astro-icon/components";
           bottom: -8px;
           left: calc((var(--size) * -1));
           transition: all 0.35s ease;
-          input {
+          & input {
             width: calc(var(--size) - 5px);
             border: 1px solid #ddd;
             padding: 6px;
