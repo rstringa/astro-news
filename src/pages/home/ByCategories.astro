@@ -1,0 +1,184 @@
+---
+// import 'swiper/css/bundle';
+import BoxArticles from "@pages/home/BoxArticles.astro";
+import CardSlider from "@components/CardSlider.astro";
+import {categoriesListData} from "@data/getCategories.js";
+
+---
+<section class="section">
+    <div class="container">
+        <h2>Por Categorias</h2>
+        <div class="outer-grid">
+        <div class="col-left">
+            <nav class="categories-list">
+                <div class="swiper swiper-categories-list">
+                    
+                     <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="category-item is-active" data-category="all">Todas</div>
+                        </div>
+                { categoriesListData.map( function(category){
+                 return (
+                        <div class="swiper-slide">
+                            <div class="category-item" data-category=`cat-${category.databaseId}`>
+                                {category.name}
+                            </div>
+                        </div>
+                        )
+                    })
+                } 
+                    </div>
+                </div>
+            </nav>
+            <div class="inner-grid">
+                <BoxArticles
+                first={1}
+                last={100}
+                type="category" 
+                />
+            </div>
+
+        </div>
+        <div class="col-right">
+            <div class="cards">
+                <CardSlider />
+            </div>
+        </div>
+    </div>
+    </div>
+</section> 
+
+<script>
+    { /* SLIDER */  }
+    {/* import Swiper from 'swiper/bundle';
+    const swiper = new Swiper('.swiper-categories-list', {
+        slidesPerView:4,
+        spaceBetween: 12,
+        centeredSlides: true,
+        freeMode: true,
+        autoplay:false,  
+     }) */}
+
+{ /* Show/Hide Notes  */  }
+const categories = document.querySelectorAll(".categories-list .category-item");
+const categoryNotes = document.querySelectorAll(".category-note");
+
+categories.forEach((category:HTMLElement) => {
+        category.addEventListener("click", (e) => {
+            console.log(e.target)
+            const type = category.dataset.category || "all";
+            
+            categoryNotes.forEach(note => {
+                if(type === "all") {
+                    note.classList.remove('is-invisible');
+                    return
+                }
+                if (note.classList.contains(type)) {
+                    note.classList.remove('is-invisible');
+                } else {
+                    note.classList.add('is-invisible');
+                }
+            });
+        })
+    })
+</script>
+
+<style is:inline>
+    .categories-list { 
+            padding: 12px 24px;
+            // background: color-mix(in srgb, var(--primary) 15%, #fff 90%);
+            border-bottom: 1px solid #eee;
+            border-radius: 32px;
+            margin-bottom: 24px;
+            justify-content: space-evenly;
+        & .swiper-wrapper {
+            display: flex;
+            justify-content: center;
+        }    
+        & .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+        }    
+        & .category-item {
+            --spacing: 28px;
+            cursor: pointer;
+            text-align: center;
+            width: fit-content;
+            padding: 8px 0px;
+            border-radius: 12px;
+            padding: 8px var(--spacing);
+            &:hover {
+                background: color-mix(in srgb, var(--primary) 10%, #fff 90%);
+                padding: 8px var(--spacing);
+            }
+            &.is-active {
+                background: var(--primary);
+                color:#fff;
+                padding: 8px var(--spacing);
+               
+            } 
+        }
+    }
+    .outer-grid {
+        display: grid;
+        grid-template-columns:minmax(0, 2fr) minmax(0, 1fr);
+        gap: 32px;    
+    }
+    .col-left{
+        & .inner-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap:32px;
+         & .category-note {
+            position: relative;
+            opacity: 1;
+            display: block;
+            transition: all 0.5s;
+            &.is-invisible {
+                opacity: 0;
+                display: none;
+            }
+            & img {
+                border-radius:16px;
+                aspect-ratio:1/1;
+                object-fit: cover;
+            }
+            & .text {
+                background:#fff;
+                padding: 28px 32px 16px 0;
+                margin-top: -28%;
+                position: relative;
+                z-index: 1;
+                width:80%;
+                border-radius: 0 8px 0 0;
+                transform: translateY(0px);
+                transition: all 0.5s ease-in-out;
+          
+                & .title {
+                    font-size: 18px;
+                    line-height: 1.3333;
+                    font-weight: 600;
+                    color: #000;
+                }                
+            }
+            &:hover {
+                & .text {
+                    transform: translateY(8px); 
+                }
+            }
+            
+         }
+        }
+        
+    }
+    .col-right{
+        
+        & .cards {
+            width: 100%;
+            padding: 32px; 
+        }
+    }   
+</style>
+

@@ -1,0 +1,100 @@
+---
+import cloud from "@assets/images/header_icon1.png";
+import { Icon } from "astro-icon/components";
+---
+
+<style>
+  .header-top {
+    
+    background: #000;
+
+    & .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      align-content: center;
+      overflow: clip;
+    }
+
+    & .header-info-left {
+      ul {
+        display: flex;
+        margin: 0;
+        gap: 44px;
+        li {
+          color: #fff;
+          font-size: 0.8rem;
+          width: max-content;
+          img {
+            margin-right: 8px;
+          }
+        }
+      }
+    }
+    & .header-info-right {
+      display: flex;
+      justify-content: flex-end;
+      ul {
+        display: flex;
+        align-content: center;
+        align-items: center;
+        gap:10px;
+        li {
+          line-height: 1;
+        }
+        a {
+          color: #bab9b9;
+          font-size: 1rem;
+          transition: all 0.25s;
+          & svg {
+            transition: all .4s ease-out 0s;
+          }
+          &:hover {
+            color: var(--primary);
+            & svg {
+              transform: rotateY(180deg);
+            }  
+            
+          }
+        }
+      }
+    }
+    @media (max-width: 1024px) {
+      & .container {
+      }
+      & .header-info-left {
+        width: 100%;
+        ul {
+          justify-content: center;
+        }
+      }
+      & .header-info-right {
+        display: none;
+      }
+    }
+  }
+</style>
+
+<div class="header-top">
+  <div class="container">
+    <div class="header-info-left">
+      <ul>
+        <li>
+          <img src={cloud.src} width="23" height="16" alt="Cloud" />34ºc, Sunny
+        </li>
+        <li>
+          <img src={cloud.src} width="23" height="16" alt="Cloud" />Tuesday,
+          18th June, 2019
+        </li>
+      </ul>
+    </div>
+    <div class="header-info-right">
+      <ul class="header-social">
+        <li><a href="#"><Icon name="tabler:brand-x-filled" /></a></li>
+        <li><a href="#"><Icon name="tabler:brand-facebook-filled" /></a></li>
+        <li><a href="#"><Icon name="tabler:brand-instagram" /></a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+

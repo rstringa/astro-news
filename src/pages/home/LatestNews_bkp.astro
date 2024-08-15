@@ -1,0 +1,168 @@
+---
+import fallback from "@assets/images/fallback.webp";
+import {postsData} from "@data/getPosts.js";
+import { Image } from 'astro:assets';
+import 'swiper/css/bundle';
+---
+<section class="section bg-grey">
+<div class="container">
+    <h2>Novedades</h2>
+    <div class="swiper-navigation">
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+        <div class="swiper swiper-1">
+
+            <div class="swiper-wrapper">
+           
+                
+                    {
+                        postsData.map( function(trend, index) {
+                            let randomCat = Math.floor(Math.random() * 6);
+                            let categorySlug = postsData[index]?.categories?.nodes[0]?.slug;
+                            let categoryName = postsData[index]?.categories?.nodes[0]?.name;
+                            let categoryId = postsData[index]?.categories?.nodes[0]?.databaseId;
+
+                            if (index < 10) {
+                              
+                            return (
+                            <div class="swiper-slide">
+                                <article class=`latest-note note-${index} cat-${categoryId}` >
+                                {/* foto */}
+                
+                                    {trend.featuredImage && trend.featuredImage.node.sourceUrl ? (
+                                        <Image
+                        src={trend.featuredImage.node.sourceUrl}
+                        alt={trend.title}
+                        width="400"
+                        height="250"
+                    />
+                    ) : (
+                    <Image
+                        src={fallback}
+                        width={fallback.width}
+                        height={fallback.height}
+                        alt="Fallback"
+                    />
+                                    )}
+                       
+                                <div class="text">     
+                                    <a href=`/secciones/${categorySlug}`>
+                                        <h4 class=`label`>{categoryName}</h4>
+                                    </a>
+                                        <p class="date">25 Enero 2024</p>
+                                        <h3 class="title">
+                                        <a href={trend.slug}>{trend.title}</a>
+                                        </h3>
+                                    </div>
+                                </article>
+                             </div>
+                        )
+                            } 
+                        })
+                        }
+                </div>
+                <!-- <div class="swiper-pagination"></div> -->
+              <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
+</section>
+<style>
+    .swiper {
+        cursor: grab;
+        overflow: revert;
+        .swiper-wrapper {
+            /* padding-bottom: calc(var(--base) * 18); */
+        }
+        .swiper-slide{
+            transition: transform 0.35s ease-in-out;
+            &:hover{
+                    /* transform: scale(1.05); */
+                }
+        }
+        .swiper-scrollbar {
+            bottom: 10px;
+        }
+        .swiper-scrollbar-drag {
+            height: 4px;
+            background: var(--primary);
+        } 
+   
+    }
+    .swiper-navigation {
+            --swiper-navigation-size:28px;
+            position: absolute; 
+            top:calc(var(--swiper-navigation-size) * 1.75);
+            right: 0;
+            width:calc(var(--swiper-navigation-size) * 2.5);
+            & .swiper-button-next, & .swiper-button-prev{
+                color:var(--grey-1);
+            }
+            & .swiper-button-next:hover, & .swiper-button-prev:hover{
+                color:var(--primary);
+            }
+        }
+        .label {
+        position: relative;
+        margin:-24px 0 12px 12px;
+        border-radius: 4px 4px 4px 0;
+        z-index: 5;
+        box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
+    }
+        .latest-note {
+            margin-bottom: 60px;
+            & img {
+                width: 100%;
+                aspect-ratio: 18 / 12;
+                object-fit: cover;
+                border-radius: var(--border-radius);
+            }
+            & .date {
+               color:var(--grey-1);
+               margin-bottom: 8px;     
+            }
+            & .title {
+                font-size: 18px;
+                line-height: 1.3333;
+                font-weight: 600;
+                color:#000;
+                margin: 0;
+            }
+            .label {
+                /* transition: transform 0.3s ease-in-out; */
+            }
+            &:hover {
+           
+                .label { 
+                    /* transform: translateY(-8px); */
+                }
+            }
+        }
+</style>    
+<script>
+    import Swiper from 'swiper/bundle';
+     const swiper = new Swiper('.swiper-1', {
+  
+        slidesPerView: 4,
+        spaceBetween: 32,
+    //     pagination: {
+    //     el: ".swiper-pagination",
+    //     clickable: true,
+    //   },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+      },
+      freeMode: true,
+      autoplay: {
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+      
+      scrollbar: {
+        el: ".swiper-scrollbar",
+        dragSize : 120,
+        draggable: true,
+      } 
+     })
+</script>

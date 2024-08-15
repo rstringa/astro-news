@@ -1,0 +1,124 @@
+/* Improve Page speed */
+/* https://css-tricks.com/almanac/properties/c/content-visibility/ */
+/* img {
+        content-visibility: auto;
+      } */
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+:root {
+  --base: 4px;
+  /* --primary: #ff0b0b; */
+  /* --primary: #ffba0b; */
+  --primary: #009688;
+  --grey-1:#8f8f96;
+  --grey-2:#506172;
+  --bg-grey:#f7f7fd;
+  --border-radius: calc(var(--base) * 2);
+}
+html {
+  scroll-behavior: smooth;
+  font-family: "Public Sans Variable", sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff;
+}
+a {
+  transition: all 0.25s;
+  text-decoration: none;
+  color: inherit;
+}
+a:hover {
+  color: var(--primary);
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+h1, h2, h3 {
+  font-weight: 700;
+}
+.container {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 8px 0;
+  overflow: hidden;
+}
+.section {
+  border-bottom: 1px solid #eee;
+  padding: calc(var(--base) * 15) calc(var(--base) * 5);
+}
+.bg-grey {
+  background-color: var(--bg-grey);
+}
+.label-box {
+  display: flex;
+  gap:8px;
+}
+.label {
+  color: #000;
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  width: fit-content;
+  padding: 8px 20px;
+  margin:0 0 12px 0;
+  line-height: 1;
+  background: #f4ffd5;
+  border-radius: 4px;
+  transition: all 0.25s ease-in-out;
+}
+.label:hover {
+  background:var(--primary)!important;
+  color:#fff;
+  transform: skewX(-8.5deg);
+}
+/* Images */
+a:has(img.zoomIn){
+  overflow: clip;
+  display: flex;
+  border-radius: 8px;
+}
+a:has(img.zoomIn) img {
+  transition: .5s ease;
+}
+a:has(img.zoomIn):hover img {
+  transform: scale(1.15,1.15);
+}
+
+/* Categories */
+.cat-14 .label{
+  background-color: #ffe7e6;
+}
+.cat-15 .label {
+  background-color: #f4ffd5;
+}
+.cat-16 .label {
+  background-color: #e1fcff;
+}
+.cat-17 .label {
+  background-color: #f2dcfe;
+}
+.cat-18 .label {
+  background-color: rgb(254, 230, 131);
+}

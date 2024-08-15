@@ -1,0 +1,49 @@
+---
+import banner from "@assets/images/banner.jpg";
+---
+
+<div class="header-middle">
+  <div class="container">
+    <div class="logo">
+      <a href="/"><img src="./logo.png" width="185" height="62" alt="Logo" /></a
+      >
+    </div>
+    <div class="banner">
+      <a href="#"
+        ><img src={banner.src} width="750" height="100" alt="Banner" /></a
+      >
+    </div>
+    <div class="mobile-nav" style="display: none"></div>
+  </div>
+</div>
+<style>
+  .header-middle {
+    & .container {
+      
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      align-content: center;
+      overflow: clip;
+    }
+    & .logo {
+      @media (max-width: 1024px) {
+        text-align: center;
+        margin: 0 0 8px 0;
+      }
+    }
+    .banner img {
+      width: 750px;
+      max-width: 100%;
+      height: auto;
+    }
+    @media (max-width: 1024px) {
+      & .banner {
+        text-align: center;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+</style>

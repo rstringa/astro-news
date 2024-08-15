@@ -1,0 +1,69 @@
+---
+import { Image } from "astro:assets";
+import "swiper/css/bundle";
+---
+
+<div class="ticker">
+  <div class="container">
+    <div class="title">Actualidad</div>
+    <div class="ticker-box">
+      <div class="swiper swiper-ticker">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <p>Consectetur adipisicing elit</p>
+            </div>
+            <div class="swiper-slide">
+                <p>Notice dolor sit amet, consectetur adipisicing elit</p>
+            </div>
+            <div class="swiper-slide">
+                <p>Noptio omnis doloribus accusamus aliquam consequuntur optio</p>
+            </div> 
+        </div>
+      </div>
+    </div>
+  </div> 
+</div> 
+
+  <style>
+    .ticker {
+       padding: 24px 0 8px 0; 
+      .container {
+        display: flex;
+        align-items: center;
+      }
+      & .title {
+        padding: 4px 12px;
+        margin-right: 12px;
+        background: var(--primary);
+        border-radius: 4px;
+        color:#fff;
+        transform: skewX(-8.5deg);
+        margin-left: 4px;
+      }
+      & .ticker-box {
+        width: 100%;
+        p {
+          font-size: 1rem;
+          color: var(--grey-2);
+          margin: 0;
+        }
+      }
+    }
+  </style>
+  <script>
+    import Swiper from "swiper/bundle";
+    const swiper = new Swiper(".swiper-ticker", {
+      slidesPerView: 1,
+      spaceBetween: 8,
+      loop: true,
+      speed:500,
+      effect: "coverflow",
+      autoplay: {
+        disableOnInteraction: false,
+        pauseOnMouseEnter: true,
+        reverseDirection: true,
+        delay: 5000,
+      },
+    });
+  </script>
+</div>

@@ -1,0 +1,109 @@
+---
+import fallback from "@assets/images/fallback.webp";
+import {postsData} from "@data/getPosts.js";
+import 'swiper/css/bundle';
+
+---
+
+
+<div class="swiper swiper-cards">
+    <div class="swiper-wrapper">
+        {
+            postsData.map( function(trend, index) {
+                if (index < 5) {
+                let bgImage = trend.featuredImage && trend.featuredImage.node.sourceUrl ? trend.featuredImage.node.sourceUrl : fallback.src    
+                return (
+                <div class="swiper-slide">
+                         <article  
+                         class=`card-slider-note note-${index}`
+                         style=`background-image: url(${bgImage});`
+                         >
+                            <h3 class="title">
+                            <a href={trend.slug}>{trend.title}</a>
+                            </h3>
+
+                    </article>
+                 </div>
+            )
+                } 
+            })
+            }
+    </div>    
+</div>
+
+<style>
+    .swiper-cards {
+      width: 240px;  
+      max-width: 100%;
+      aspect-ratio: 1/1.5;
+      & .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.45);
+         &.swiper-slide-fully-visible {
+           
+         }
+         &:not(.swiper-slide-fully-visible){
+            opacity: 0.55;
+            box-shadow: 0px 0px 5px rgba(0,0,0,0.25);
+            & .card-slider-note:after{
+                background: rgba(0,0,0,.15);
+              
+            }
+         }
+            } 
+    }
+    .card-slider-note{
+        position: relative;
+        width: 100%;
+        height:100%;
+        background-size: cover;
+        background-position: top center;
+        
+        &:after {
+            content:"";
+            background: rgba(0,0,0,.65);
+            mix-blend-mode: overlay;    
+            position: absolute;
+            inset:0;
+            width: 100%;
+        }
+        .title a {
+            color:#fff;
+            font-size: 18px;
+            line-height: 24px;
+            font-weight: 600;
+            background-color: var(--primary);
+            padding: 16px 24px;
+            width:90%;
+            height: fit-content;
+            position: absolute;
+            top:15%;
+            left:0;
+            margin: 0;
+            z-index: 1;
+            box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.45);
+            text-wrap:balance;
+            border-radius: 0 8px 8px 0px;
+        }
+    }    
+    
+
+
+</style>
+
+<script>
+    import Swiper from 'swiper/bundle';
+     const swiper = new Swiper('.swiper-cards', {
+        effect: 'cards',
+        grabCursor: true,
+        speed: 500,
+      autoplay: {
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+
+     })
+</script>
