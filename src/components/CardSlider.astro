@@ -1,13 +1,16 @@
 ---
+interface Props {
+  width: number;
+}
 import fallback from "@assets/images/fallback.png";
 import {postsData} from "@data/getPosts.js";
 import 'swiper/css/bundle';
-
+const {width=240} = Astro.props;
 ---
+ 
 
-
-<div class="swiper swiper-cards">
-    <div class="swiper-wrapper">
+<div class="swiper swiper-cards" style=`width:${width}px`>
+    <div class="swiper-wrapper" >
         {
             postsData.map( function(trend, index) {
                 if (index < 5) {
@@ -19,9 +22,10 @@ import 'swiper/css/bundle';
                          style=`background-image: url(${bgImage});`
                          >
                             <h3 class="title">
-                            <a href={trend.slug}>{trend.title}</a>
+                            <a href={trend.slug}>{trend.title}</a>                            
                             </h3>
-
+                            <a href={trend.slug} class="buy">Comprar Online</a>
+                            
                     </article>
                  </div>
             )
@@ -33,7 +37,7 @@ import 'swiper/css/bundle';
 
 <style>
     .swiper-cards {
-      width: 240px;  
+      /* width: 240px;   */
       max-width: 100%;
       aspect-ratio: 1/1.5;
       & .swiper-slide {
@@ -79,15 +83,38 @@ import 'swiper/css/bundle';
             padding: 16px 24px;
             width:90%;
             height: fit-content;
-            position: absolute;
-            top:15%;
+            position: absolute; 
+            top:28px;
             left:0;
             margin: 0;
             z-index: 1;
             box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.45);
             text-wrap:balance;
             border-radius: 0 8px 8px 0px;
+           
         }
+        & .buy {
+                display:flex;
+                flex-wrap: nowrap;
+                white-space: nowrap;
+  
+                background-color: #fff;
+                border-radius: 32px;
+                padding: 8px 24px;
+                justify-content: center;
+                margin: 0;
+                position: absolute;
+                z-index: 1;
+                bottom:24px;
+                left: 50%;
+                transform: translateX(-50%);
+                transition: all 0.25s;
+                &:hover {
+                    background: var(--primary);
+                    color:#fff;
+                    
+                }                
+            }
     }    
     
 
@@ -100,6 +127,7 @@ import 'swiper/css/bundle';
         effect: 'cards',
         grabCursor: true,
         speed: 500,
+        loop:true,
       autoplay: {
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
