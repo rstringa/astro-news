@@ -1,8 +1,82 @@
 ---
-const { first, last, type="card" } = Astro.props;
+interface Props {
+  first: number;
+  last?: number;
+  type?: string;
+}
+const { first, last, type = "card" } = Astro.props;
+const hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 ---
-<script>
 
-import {postsData} from "@data/getPostsDynamic.js";
-console.log(postsData);
+<div class="inner" data-hash={hash} data-first={first} data-last={last} data-type={type}></div>
+<style>
+      .inner {
+      display: contents;
+    }
+</style>
+<script>
+  import { postsData } from "@data/getPostsDynamic.js";
+  import fallback from "@assets/images/fallback.png";
+  let inner = document.querySelectorAll(".inner") as any;
+  inner.forEach((Component) => {
+    
+  
+
+  console.log(inner);
+ 
+  postsData.map(function (trend, index) {
+    let categories = postsData[index]?.categories?.nodes || [];
+    let categorySlugs = categories.map((category) => category.slug);
+    let categoryNames = categories.map((category) => category.name);
+    let categoryIds = categories.map((category) => category.databaseId);
+    let categorySlug = postsData[index]?.categories?.nodes[0]?.slug;
+    let categoryName = postsData[index]?.categories?.nodes[0]?.name;
+    let categoryId = postsData[index]?.categories?.nodes[0]?.databaseId;
+    let first = Component.dataset.first || 1;
+    let last = Component.dataset.last;
+    let type = Component.dataset.type;
+    if (index >= (first as number) - 1 && last && index < last) {
+      if (type && type !== "slider") {
+       
+        Component.innerHTML += `
+            <article class="${type}-note note-${index} note-categories-${categoryIds.join(" note-categories-")}">
+   
+                ${trend.featuredImage && trend.featuredImage.node.sourceUrl ? (
+          `<a href="/${trend.slug}">
+          <img
+              class="zoomIn"
+              src=${trend.featuredImage.node.sourceUrl}
+              alt=${trend.title}
+              width="800"
+              height="600"
+          />
+          </a>`
+          ) : (
+          `<img
+              src=${fallback.src}
+              width=${fallback.width}
+              height=${fallback.height}
+              alt="Fallback"
+          />`
+          )}
+              <div class="text">
+                    <div class="label-box">
+                        ${categoryIds.map((categoryId, index) => (
+                            `<a href="/secciones/${categorySlugs[index]}">
+                                <h4 class="label">${categoryNames[index]}</h4>
+                            </a>`
+                        ))}
+                    </div>
+
+                    <h2 class="title">
+                        <a href=${trend.slug}>${trend.title}</a>
+                    </h2>
+                </div>
+            </article>
+              `;
+        }
+      }
+    
+  });
+})
 </script>
