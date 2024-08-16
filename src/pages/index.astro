@@ -4,13 +4,14 @@ import Trending from "@pages/home/Trending.astro";
 import LatestNews from "@pages/home/LatestNews.astro";
 import ByCategories from "@pages/home/ByCategories.astro";
 import Ticker from "@components/Ticker.astro";
-export const prerender = false;
+import TrendingDynamic from "@pages/home/TrendingDynamic.astro";
 ---
 <style>
 
 </style>
 <Layout title="Home">
-    <Ticker />    
+    <Ticker />
+    <TrendingDynamic />    
     <Trending />
     <LatestNews />
     <ByCategories />

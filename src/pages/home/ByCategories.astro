@@ -7,9 +7,10 @@ import {categoriesListData} from "@data/getCategories.js";
 ---
 <section class="section">
     <div class="container">
-        <h2>Por Categorias</h2>
+        
         <div class="outer-grid">
         <div class="col-left">
+            <h2>Secciones destacadas</h2>
             <nav class="categories-list">
                 <div class="swiper swiper-categories-list">
                     
@@ -128,15 +129,17 @@ categories.forEach((category:HTMLElement) => {
             } 
         }
     }
-    h2 {
-        margin-bottom: 32px;
-    }
+  
     .outer-grid {
         display: grid;
         grid-template-columns:minmax(0, 2fr) minmax(0, 1fr);
         gap: 32px;    
     }
     .col-left{
+          h2 {
+        margin-bottom: 32px;
+        
+    }
         & .inner-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;

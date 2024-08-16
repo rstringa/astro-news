@@ -1,0 +1,25 @@
+---
+import BoxArticlesDynamic from "@pages/home/BoxArticlesDynamic.astro";
+---
+
+<section class="section trending">
+    <div class="container">
+      <div class="col-left">
+  
+       <BoxArticlesDynamic
+          first={1}
+          last={4}
+          type="trending"
+       />  
+  
+      </div>
+  
+      <div class="col-right">
+          <BoxArticlesDynamic
+          first={5}
+          last={10}
+          type="trending" 
+          />
+      </div>
+    </div>
+  </section>
