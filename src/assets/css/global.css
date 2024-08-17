@@ -62,7 +62,7 @@ h1, h2, h3 {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 8px 0;
+  padding: 8px 20px;
   overflow: hidden;
 }
 .section {

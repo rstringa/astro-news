@@ -1,8 +1,150 @@
 ---
 import Layout from "../layouts/Layout.astro";
-const {slug} = Astro.params
----
-<Layout title="Home">
+const PUBLIC_WORDPRESS_API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+const {slug} = Astro.params;
 
-    
+  const query = `{
+          postBy(slug:"${slug}") {
+          postId
+     title
+    content
+    categories {
+      nodes {
+        name
+        slug
+      }
+    }
+    featuredImage {
+          node {
+            srcSet
+          }
+        }
+  }
+    }
+            `;
+
+            async function getSinglePost() {
+              const res = await fetch(`${PUBLIC_WORDPRESS_API_URL}`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ query }),
+              });
+              const data = await res.json();
+              return data;
+            }
+            const singlePostData = await getSinglePost();
+            const singlePost = singlePostData.data.postBy;
+            const featuredImage = singlePost.featuredImage.node.srcSet;
+            let categories = singlePost?.categories?.nodes || [];
+
+---
+<Layout title={singlePost?.title}>
+<section class="header">
+    <div class="image-bg"><img srcset={featuredImage} alt={singlePost.title}> </div>
+    <div class="container">
+        <h1>{singlePost.title}</h1>
+    </div>
+</section>
+<main>
+    <div class="container" style="overflow:visible">
+        <div class="categories">
+            <p>12 de Agosto, 2022 en</p>
+            <div class="label-box">
+            { categories.map(function(category, index){
+                return (
+                    <a href={`/secciones/${category.slug}`}><h4 class="label">{category.name}</h4></a>
+                )
+            })
+        }
+        </div>
+        </div>
+        <div class="post-content">
+            <div set:html = {singlePost.content}></div>
+        </div> 
+    </div>
+</main>    
 </Layout>
+
+<style is:inline>
+
+    .header {
+        position: relative;
+        display: grid;
+        place-content: center;
+        overflow: hidden;
+        & .image-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-color: #000;
+            &:after {
+                    content:"";
+                    position: absolute;
+                    z-index: 1;
+                    inset:0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,.45);
+                }
+            & img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position:center;
+                /* filter: opacity(.35); */
+                
+            }
+           
+        }
+        & h1 {
+                color:#f9f9f9;
+                font-size: clamp(2.5rem, 5vw, 5rem);
+                margin: 15vh 0;
+                max-width: 990px;
+                text-align: center;
+                text-wrap: balance;
+                line-height: 1.25;
+                text-shadow: 0 0 5px rgba(0,0,0,0.5);
+             }
+
+    }
+  
+    .categories {
+        width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        padding: 12px 40px 12px 40px;
+        border-bottom: 1px solid #e5e5e5;
+        border-radius: 32px;
+        margin: 14px auto 60px auto;
+        box-shadow: 13px 20px 20px rgb(166 164 164 / 15%);
+        background-color: #fff;
+        position: relative;
+        z-index: 1;
+
+        & p {
+            margin: 0 12px 0 0;
+            color:var(--primary);
+        }
+        & .label {
+            margin: 0;
+        }
+    }
+    .post-content {
+        max-width: 990px;
+        margin: 0 auto;
+        & p {
+            font-size: 18px;
+            line-height: 24px;
+        } 
+        & img {
+            max-height: 50vh;
+            object-fit: cover;
+        }
+    }
+</style>    
