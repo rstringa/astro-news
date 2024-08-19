@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import {getFormattedDate} from "@utils/all.js";
-import { Icon } from "astro-icon/components"; 
+import Image from "astro/components/Image.astro";
 const PUBLIC_WORDPRESS_API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
 const {slug} = Astro.params;
 
@@ -20,6 +20,8 @@ const {slug} = Astro.params;
     featuredImage {
           node {
             srcSet
+            sizes
+            sourceUrl(size: _1536X1536)
           }
         }
   }
@@ -39,14 +41,15 @@ const {slug} = Astro.params;
             }
             const singlePostData = await getSinglePost();
             const singlePost = singlePostData.data.postBy;
-            const featuredImage = singlePost.featuredImage.node.srcSet;
+            const featuredImageSrcset = singlePost.featuredImage.node.srcSet;
+            const featuredImageSrc = singlePost.featuredImage.node.sourceUrl;
             const date = getFormattedDate(singlePost.date);
             let categories = singlePost?.categories?.nodes || [];
   
 ---
 <Layout title={singlePost?.title}>
 <section class="header">
-    <div class="image-bg"><img srcset={featuredImage} alt={singlePost.title}> </div>
+    <div class="image-bg"><Image src={featuredImageSrc} width="1920" height="600"  alt={singlePost.title} /> </div>
     <div class="container">
         <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">{singlePost.title}</h1>
     </div>
