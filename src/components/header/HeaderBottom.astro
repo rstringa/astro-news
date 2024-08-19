@@ -18,15 +18,12 @@ const currentPath = pathname.slice(1);
     </div>
     <div class="search">
       <div class="search-box">
-        <Icon name="tabler:zoom" />
+        <Icon name="tabler:zoom" class="search-icon"/>
         <form action="#">
           <input type="text" placeholder="Buscar" />
         </form>
       </div>
     </div>
-
- 
-
   </div>
 </div>
 <style>
@@ -136,3 +133,19 @@ const currentPath = pathname.slice(1);
     }
   }
 </style>
+<script>
+const submitForm = document.querySelector(".search-box form");
+const searchIcon = document.querySelector(".search-icon");
+submitForm?.addEventListener("submit", (e) => {
+  e.preventDefault();
+  submitFunction();
+  
+})
+searchIcon?.addEventListener("click", (e) => {
+  e.preventDefault();
+  submitFunction();
+})
+function submitFunction(){
+  console.log("submit");
+}  
+</script>
