@@ -42,13 +42,13 @@ const {slug} = Astro.params;
             const featuredImage = singlePost.featuredImage.node.srcSet;
             const date = getFormattedDate(singlePost.date);
             let categories = singlePost?.categories?.nodes || [];
-            console.log( singlePostData );
+  
 ---
 <Layout title={singlePost?.title}>
 <section class="header">
     <div class="image-bg"><img srcset={featuredImage} alt={singlePost.title}> </div>
     <div class="container">
-        <h1>{singlePost.title}</h1>
+        <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">{singlePost.title}</h1>
     </div>
 </section>
 <main>
