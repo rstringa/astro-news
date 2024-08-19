@@ -1,11 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import {getFormattedDate} from "@utils/all.js";
+import { Icon } from "astro-icon/components"; 
 const PUBLIC_WORDPRESS_API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
 const {slug} = Astro.params;
 
   const query = `{
           postBy(slug:"${slug}") {
           postId
+          date
      title
     content
     categories {
@@ -37,8 +40,9 @@ const {slug} = Astro.params;
             const singlePostData = await getSinglePost();
             const singlePost = singlePostData.data.postBy;
             const featuredImage = singlePost.featuredImage.node.srcSet;
+            const date = getFormattedDate(singlePost.date);
             let categories = singlePost?.categories?.nodes || [];
-
+            console.log( singlePostData );
 ---
 <Layout title={singlePost?.title}>
 <section class="header">
@@ -50,7 +54,7 @@ const {slug} = Astro.params;
 <main>
     <div class="container" style="overflow:visible">
         <div class="categories">
-            <p>12 de Agosto, 2022 en</p>
+            <p>Publicado el {date} </p>
             <div class="label-box">
             { categories.map(function(category, index){
                 return (
@@ -107,8 +111,9 @@ const {slug} = Astro.params;
                 max-width: 990px;
                 text-align: center;
                 text-wrap: balance;
-                line-height: 1.25;
+                line-height: 1.15;
                 text-shadow: 0 0 5px rgba(0,0,0,0.5);
+                letter-spacing: -0.015rem;
              }
 
     }
@@ -129,7 +134,12 @@ const {slug} = Astro.params;
 
         & p {
             margin: 0 12px 0 0;
-            color:var(--primary);
+            color:var(--grey-1);
+            display: flex;
+            align-items: center;
+            & span {
+                line-height: 0 4px;
+            } 
         }
         & .label {
             margin: 0;

@@ -10,7 +10,8 @@
       "@assets/*": ["assets/*"],
       "@pages/*": ["pages/*"],
       "@icons/*": ["icons/*"],
-      "@data/*": ["data/*"]
+      "@data/*": ["data/*"],
+      "@utils/*": ["utils/*"]
     }
   }
 }

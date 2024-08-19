@@ -8,7 +8,7 @@ import { categoriesListData } from "@data/getCategories.js";
   <div class="container">
     <div class="outer-grid">
       <div class="col-left">
-        <h2>Featured Sections</h2>
+        <h2>Secciones destacadas</h2>
         <nav class="categories-list">
           <div class="swiper swiper-categories-list">
             <div class="swiper-wrapper">
@@ -17,7 +17,7 @@ import { categoriesListData } from "@data/getCategories.js";
                   class="category-item is-active"
                   data-category="all"
                 >
-                  All
+                  Todas
                 </div>
               </div>
               {categoriesListData.map((category) => (
@@ -38,7 +38,7 @@ import { categoriesListData } from "@data/getCategories.js";
         </div>
       </div>
       <div class="col-right">
-        <h3 class="h3">Recommended Reading</h3>
+        <h3 class="h3">Lectura recomendada</h3>
         <div class="cards">
           <CardSlider width={240} />
         </div>
@@ -141,10 +141,16 @@ import { categoriesListData } from "@data/getCategories.js";
         opacity: 1;
         display: block;
         transition: all 0.5s;
+        @starting-style {
+          opacity:0;
+        }
+        
 
         &.is-invisible {
           opacity: 0;
           display: none;
+          transition:all 0.5s ease,
+          display 0.5s allow-discrete;
         }
 
         & img {
@@ -197,6 +203,7 @@ import { categoriesListData } from "@data/getCategories.js";
       padding: 4px 24px;
       margin: auto;
       margin-bottom: 29px;
+      margin-top:86px;
     }
   }
 </style>
