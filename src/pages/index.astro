@@ -5,13 +5,15 @@ import LatestNews from "@pages/home/LatestNews.astro";
 import ByCategories from "@pages/home/ByCategories.astro";
 import Ticker from "@components/Ticker.astro";
 import TrendingDynamic from "@pages/home/TrendingDynamic.astro";
+import BlogPosts from "@components/BlogPosts.jsx";
 ---
-<style>
+<style> 
 
 </style>
 <Layout title="Home">
     <Ticker />
     <!-- <TrendingDynamic />     -->
+     <BlogPosts client:load />
     <Trending />
     <LatestNews />
     <ByCategories />
