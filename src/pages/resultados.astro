@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from 'astro:assets';
+import fallback from "@assets/images/fallback.png";
+const PUBLIC_WORDPRESS_API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
+let s = Astro.url.searchParams.get("s")! || "";
+s = s.toString();
+
+
+async function getSearchPosts() {
+  const PostsList = await fetch(`${PUBLIC_WORDPRESS_API_URL}`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `{
+      posts(where: {search: "${s}", status: PUBLISH, hasPassword: false}) {
+        nodes {
+          title
+          slug
+          isRestricted
+          categories {
+            nodes {
+              databaseId
+              slug
+              name
+            }
+          }
+          featuredImage {
+            node {
+              sourceUrl(size: LARGE)
+            }
+          }
+        }
+      }
+    }
+            `,
+    }),
+  });
+  const { data } = await PostsList.json();
+  return data;
+}
+const data = await getSearchPosts();
+
+//
+const actualPage = Astro.url.searchParams.get('page')! || '1'; 
+const perPage = 3
+const totalPosts =  data?.posts?.nodes.length || 0
+const totalPages = Math.ceil(totalPosts/perPage)
+const offset = ( parseInt(actualPage) - 1) * perPage
+let postsData = data?.posts?.nodes.slice(offset, offset + perPage);
+const type = "card";
+---
+
+<Layout title=`Resultados de buscar: ${s}` >
+<div class="container">
+{
+    postsData?.length < 1 ? (
+      <p>No hay resultados</p>
+    ) : (
+    postsData?.map(function(trend, index) {
+        
+        let categories = postsData[index]?.categories?.nodes || [];
+        let categorySlugs = categories.map(category => category.slug);
+        let categoryNames = categories.map(category => category.name);
+        let categoryIds = categories.map(category => category.databaseId);
+        let categorySlug = postsData[index]?.categories?.nodes[0]?.slug;
+        let categoryName = postsData[index]?.categories?.nodes[0]?.name;
+        let categoryId = postsData[index]?.categories?.nodes[0]?.databaseId;
+   return (     
+    <article class={
+        [
+          `${type}-note`,
+          `note-${index}`,
+          ...categoryIds.map(id => `cat-${id}`),
+        ].join(' ')
+      }>
+          {trend.featuredImage && trend.featuredImage.node.sourceUrl ? (
+          <a href=`/${trend.slug}`>
+          <Image
+              class="zoomIn"
+              src={trend.featuredImage.node.sourceUrl}
+              alt={trend.title}
+              width="800"
+              height="600"
+          />
+          </a>
+          ) : (
+          <img
+              src={fallback.src}
+              width={fallback.width}
+              height={fallback.height}
+              alt="Fallback"
+          />
+          )}
+    
+      <div class="text">     
+              <div class="label-box">
+                                    {categoryIds.map( (categoryId, index) => (
+                        <a  href={`/secciones/${categorySlugs[index]}`}>
+                            <h4 class="label">{categoryNames[index]}</h4>
+                         </a>
+                    ) )}
+                    </div>
+               <h2 class="title">
+                  <a href={trend.slug}>{trend.title}</a>
+              </h2>
+          </div>
+      </article>
+
+    
+    )
+})
+    )}
+ </div>
+</Layout>   

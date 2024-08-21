@@ -3,22 +3,39 @@ import { Icon } from "astro-icon/components";
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1);
 ---
+
 <div class="header-bottom">
   <div class="container">
     <div class="main-menu">
       <nav>
         <ul>
-          <li><a class={currentPath === "" ? "is-active" : ""} href="/">Portada</a></li>
-          <li><a class={currentPath === "secciones" ? "is-active" : ""} href="/secciones">Secciones</a></li>
-          <li><a class={currentPath === "acerca-de" ? "is-active" : ""} href="#">Acerca de</a></li>
-          <li><a class={currentPath === "destacadas" ? "is-active" : ""} href="#">Destacadas</a></li>
-          <li><a class={currentPath === "contacto" ? "is-active" : ""} href="#">Contacto</a></li>
+          <li>
+            <a class={currentPath === "" ? "is-active" : ""} href="/"
+              >Portada</a>
+          </li>
+          <li>
+            <a
+              class={currentPath === "secciones" ? "is-active" : ""}
+              href="/secciones">Secciones</a>
+          </li>
+          <li>
+            <a class={currentPath === "acerca-de" ? "is-active" : ""} href="#"
+              >Acerca de</a>
+          </li>
+          <li>
+            <a class={currentPath === "destacadas" ? "is-active" : ""} href="#"
+              >Destacadas</a>
+          </li>
+          <li>
+            <a class={currentPath === "contacto" ? "is-active" : ""} href="#"
+              >Contacto</a>
+          </li>
         </ul>
       </nav>
     </div>
     <div class="search">
       <div class="search-box">
-        <Icon name="tabler:zoom" class="search-icon"/>
+        <Icon name="tabler:zoom" class="search-icon" />
         <form action="#">
           <input type="text" placeholder="Buscar" />
         </form>
@@ -41,32 +58,31 @@ const currentPath = pathname.slice(1);
       & ul {
         display: flex;
 
-
-      & a {
-        color: #002e5b;
-        font-weight: 500;
-        padding: 39px 19px;
-        display: block;
-        font-size: 14px;
-        &:after {
-          content: "";
-          width: 0px;
-          height: 2px;
-          background: color-mix(in srgb, var(--primary) 20%, #fff 50%);
+        & a {
+          color: #002e5b;
+          font-weight: 500;
+          padding: 39px 19px;
           display: block;
-          transition: width 0.3s;
-          display: flex;
-          justify-content: center;
-          margin: 0 auto;
-        }
-        &:hover {
-          text-decoration: none;
-          color: var(--primary);
+          font-size: 14px;
           &:after {
-            width: 100%;
+            content: "";
+            width: 0px;
+            height: 2px;
+            background: color-mix(in srgb, var(--primary) 20%, #fff 50%);
+            display: block;
+            transition: width 0.3s;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
           }
-        }
-        &.is-active {
+          &:hover {
+            text-decoration: none;
+            color: var(--primary);
+            &:after {
+              width: 100%;
+            }
+          }
+          &.is-active {
             color: var(--primary);
             font-weight: 600;
             &:after {
@@ -75,10 +91,10 @@ const currentPath = pathname.slice(1);
               height: 2px;
               background: var(--primary);
               display: block;
-              justify-content: center; 
+              justify-content: center;
               margin: 0 auto;
             }
-          }   
+          }
         }
       }
     }
@@ -127,25 +143,32 @@ const currentPath = pathname.slice(1);
         }
       }
     }
-   
+
     @media (max-width: 1024px) {
       display: none;
     }
   }
 </style>
 <script>
-const submitForm = document.querySelector(".search-box form");
-const searchIcon = document.querySelector(".search-icon");
-submitForm?.addEventListener("submit", (e) => {
-  e.preventDefault();
-  submitFunction();
-  
-})
-searchIcon?.addEventListener("click", (e) => {
-  e.preventDefault();
-  submitFunction();
-})
-function submitFunction(){
-  console.log("submit");
-}  
+  const submitForm = document.querySelector(".search-box form");
+  const searchIcon = document.querySelector(".search-icon");
+  submitForm?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const word = submitForm.querySelector("input")?.value;
+ 
+    submitFunction(word);
+  });
+  searchIcon?.addEventListener("click", (e) => {
+    e.preventDefault();
+    const inputElement = document.querySelector(
+      ".search-box form input"
+    ) as HTMLInputElement;
+    const word = inputElement?.value;
+    submitFunction(word);
+  });
+  function submitFunction(word) {
+    if (!word) return;  
+    
+    window.location.href = "/resultados?s=" + encodeURIComponent(word);
+  }
 </script>
