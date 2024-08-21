@@ -1,0 +1,68 @@
+---
+import BlogPosts from "@components/BlogPosts.jsx";
+---
+<section class="section trending">
+  <div class="container">
+    <div class="col-left">
+     <BlogPosts
+        first={1}
+        last={4}
+        type="card"
+        client:load
+     />
+<!--       
+     <BoxArticles
+        first={1}
+        last={4}
+        type="trending"
+     />   -->
+
+    </div>
+
+    <div class="col-right">
+        <!-- <BoxArticles
+        first={5}
+        last={10}
+        type="trending" 
+        /> -->
+        <BlogPosts
+        first={8}
+        last={9}
+        type="card"
+        client:load
+     />
+    </div>
+  </div>
+</section>
+
+<style>
+  .trending {
+    padding-top: 32px;
+    .container {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 32px;
+      padding: 0;
+    }
+
+    .col-left {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto 1fr;
+      gap: 24px;
+   
+    }
+    .col-right {
+      & .trending-note {
+        display: grid;
+        grid-template-columns: 0.75fr 1.25fr;
+        gap: 16px;
+        align-items: stretch;
+        border-bottom: 1px solid #eee;
+        padding: 20px 0;
+        &:first-child {
+          padding-top: 0;
+        }
+    }
+  }
+</style>

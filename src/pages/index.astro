@@ -4,16 +4,16 @@ import Trending from "@pages/home/Trending.astro";
 import LatestNews from "@pages/home/LatestNews.astro";
 import ByCategories from "@pages/home/ByCategories.astro";
 import Ticker from "@components/Ticker.astro";
-import TrendingDynamic from "@pages/home/TrendingDynamic.astro";
-import BlogPosts from "@components/BlogPosts.jsx";
+// import TrendingDynamic from "@pages/home/TrendingDynamic.astro";
+import TrendingReact from "@pages/home/TrendingReact.astro";
 ---
 <style> 
 
 </style>
 <Layout title="Home">
     <Ticker />
-    <!-- <TrendingDynamic />     -->
-     <BlogPosts client:load />
+    <!-- <TrendingDynamic /> -->
+    <TrendingReact />
     <Trending />
     <LatestNews />
     <ByCategories />

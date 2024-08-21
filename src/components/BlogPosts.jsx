@@ -1,26 +1,95 @@
-// En tu componente Astro
 import { useEffect, useState } from 'react';
+import { postsData } from '@data/getPosts';
+import './BlogPosts.css';
 
-export default function BlogPosts() {
-  const [posts, setPosts] = useState([]);
+export default function BlogPosts({ first, last, type = "card" }) {
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const response = await fetch('https://bake250.isdeveloping.com/gentlecan/wp-json/wp/v2/posts');
-      const data = await response.json();
-      setPosts(data);
+   
+    const fetchData = async () => {
+      try {
+        setBlogPosts(postsData); 
+      } catch (error) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
     };
-
-    fetchPosts();
+    fetchData();
   }, []);
 
   return (
-    <div>
-      {posts.map(post => (
-        <div key={post.id}>
-          <h2>{post.title.rendered}</h2>
-        </div>
-      ))}
+    <div className={`trending-react `} >
+        {loading && 
+          <div className="loader">
+            <div></div> 
+            <p></p>
+            <p></p>
+            <p></p>
+            <p></p>
+          </div>
+        }
+        {postsData && ( blogPosts.map((post, index) => {
+          if (index >= (first - 1) && last && index < last) {
+            const categories = post.categories?.nodes || [];
+            const categorySlugs = categories.map(category => category.slug);
+            const categoryNames = categories.map(category => category.name);
+            const categoryIds = categories.map(category => category.databaseId);
+            const postType = 'card';
+
+            return (
+              <article
+                key={index}
+                className={
+                  [
+                    `${postType}-note`,
+                    `note-${index}`,
+                    ...categoryIds.map((id) => `cat-${id}`),
+                  ].join(' ')
+                }
+              >
+                <a href={`/${post.slug}`}>
+                  {post.featuredImage?.node?.sourceUrl ? (
+                    <img
+                      className="zoomIn"
+                      src={post.featuredImage.node.sourceUrl}
+                      alt={post.title}
+                      width="800"
+                      height="600"
+                    />
+                  ) : (
+                    <img
+                      src={fallback.src}
+                      width={fallback.width}
+                      height={fallback.height}
+                      alt="Fallback"
+                    />
+                  )}
+                </a>
+
+                <div className="text">
+                  <div className="label-box">
+                    {categoryIds.map((categoryId, index) => (
+                      <a href={`/secciones/${categorySlugs[index]}`} key={index}>
+                        <h4 className="label">{categoryNames[index]}</h4>
+                      </a>
+                    ))}
+                  </div>
+                  <h2 className="title">
+                    <a href={post.slug}>{post.title}</a>
+                  </h2>
+                </div>
+              </article>
+            );
+          }
+        })
+// Este mensaje se muestra mientras `blogPosts` está vacío
+      )}
     </div>
   );
 }

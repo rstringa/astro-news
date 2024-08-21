@@ -22,6 +22,7 @@ const query = `
   }
 `;
 async function getTrending() {
+  
   const res = await fetch(`${PUBLIC_WORDPRESS_API_URL}`, {
     method: "POST",
     headers: {
