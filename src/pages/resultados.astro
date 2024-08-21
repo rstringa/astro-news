@@ -2,10 +2,10 @@
 import Layout from "../layouts/Layout.astro";
 import { Image } from 'astro:assets';
 import fallback from "@assets/images/fallback.png";
+
 const PUBLIC_WORDPRESS_API_URL = import.meta.env.PUBLIC_WORDPRESS_API_URL;
 let s = Astro.url.searchParams.get("s")! || "";
 s = s.toString();
-
 
 async function getSearchPosts() {
   const PostsList = await fetch(`${PUBLIC_WORDPRESS_API_URL}`, {
@@ -74,6 +74,7 @@ const type = "card";
           ...categoryIds.map(id => `cat-${id}`),
         ].join(' ')
       }>
+           
           {trend.featuredImage && trend.featuredImage.node.sourceUrl ? (
           <a href=`/${trend.slug}`>
           <Image
@@ -91,7 +92,8 @@ const type = "card";
               height={fallback.height}
               alt="Fallback"
           />
-          )}
+          )} 
+          
     
       <div class="text">     
               <div class="label-box">
