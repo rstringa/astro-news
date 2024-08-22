@@ -47,12 +47,16 @@ const currentPath = pathname.slice(1);
   .header-bottom {
     border-top: 1px solid #eee;
     box-shadow: 0px 0px 36px 0px rgba(0, 0, 0, 0.1);
+          
+
     & .container {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
       align-content: center;
       overflow: clip;
+
+
     }
     & .main-menu {
       & ul {
@@ -148,6 +152,7 @@ const currentPath = pathname.slice(1);
       display: none;
     }
   }
+
 </style>
 <script>
   const submitForm = document.querySelector(".search-box form");

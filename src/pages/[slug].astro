@@ -81,6 +81,12 @@ const {slug} = Astro.params;
         display: grid;
         place-content: center;
         overflow: hidden;
+
+        animation: adjust-header linear both;
+        animation-timeline: scroll();
+        animation-range:200px 500px;
+
+
         & .image-bg {
             position: absolute;
             inset: 0;
@@ -160,4 +166,17 @@ const {slug} = Astro.params;
             object-fit: cover;
         }
     }
+
+    @keyframes adjust-header {
+        0% {
+            filter: blur(0);
+        }
+        50% {
+            filter: blur(2px);
+        }
+        100% {
+            filter: blur(20px);
+        }
+    }
+
 </style>    
