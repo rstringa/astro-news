@@ -10,24 +10,24 @@ const currentPath = pathname.slice(1);
       <nav>
         <ul>
           <li>
-            <a class={currentPath === "" ? "is-active" : ""} href="/"
+            <a data-astro-prefetch class={currentPath === "" ? "is-active" : ""} href="/"
               >Portada</a>
           </li>
           <li>
-            <a
+            <a data-astro-prefetch
               class={currentPath === "secciones" ? "is-active" : ""}
               href="/secciones">Secciones</a>
           </li>
           <li>
-            <a class={currentPath === "acerca-de" ? "is-active" : ""} href="#"
+            <a data-astro-prefetch class={currentPath === "acerca-de" ? "is-active" : ""} href="#"
               >Acerca de</a>
           </li>
           <li>
-            <a class={currentPath === "destacadas" ? "is-active" : ""} href="#"
+            <a data-astro-prefetch class={currentPath === "destacadas" ? "is-active" : ""} href="#"
               >Destacadas</a>
           </li>
           <li>
-            <a class={currentPath === "contacto" ? "is-active" : ""} href="#"
+            <a data-astro-prefetch class={currentPath === "contacto" ? "is-active" : ""} href="#"
               >Contacto</a>
           </li>
         </ul>
