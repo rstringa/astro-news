@@ -40,10 +40,10 @@ const {slug} = Astro.params;
               return data;
             }
             const singlePostData = await getSinglePost();
-            const singlePost = singlePostData.data.postBy;
-            const featuredImageSrcset = singlePost.featuredImage.node.srcSet;
-            const featuredImageSrc = singlePost.featuredImage.node.sourceUrl;
-            const date = getFormattedDate(singlePost.date);
+            const singlePost = singlePostData?.data.postBy;
+            const featuredImageSrcset = singlePost?.featuredImage.node.srcSet;
+            const featuredImageSrc = singlePost?.featuredImage.node.sourceUrl;
+            const date = getFormattedDate(singlePost?.date) || "";
             let categories = singlePost?.categories?.nodes || [];
   
 ---
@@ -155,7 +155,7 @@ const {slug} = Astro.params;
         }
     }
     .post-content {
-        max-width: 990px;
+        max-width: 85ch;
         margin: 0 auto;
         & p {
             font-size: 18px;
