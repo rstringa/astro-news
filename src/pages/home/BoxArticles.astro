@@ -37,7 +37,7 @@ const { first, last, type="card" } = Astro.props;
           ...categoryIds.map(id => `cat-${id}`),
         ].join(' ')
       }
-      
+      transition:name=`image-${slug}`
       
       >
           {trend.featuredImage && trend.featuredImage.node.sourceUrl ? (
@@ -48,7 +48,7 @@ const { first, last, type="card" } = Astro.props;
               alt={trend.title}
               width="800"
               height="600"
-              transition:name=`image-${slug}`
+              
           />
           </a>
           ) : (

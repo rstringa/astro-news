@@ -48,8 +48,8 @@ const {slug} = Astro.params;
             
 ---
 <Layout title={singlePost?.title} featuredImage={featuredImageSrc}>
-<section class="header">
-    <div class="image-bg"><img srcset={featuredImageSrcset}  alt={singlePost.title} loading="eager"  transition:name=`image-${slug}`/> </div>
+<section class="header" transition:name=`image-${slug}`>
+    <div class="image-bg"><img srcset={featuredImageSrcset}  alt={singlePost.title} loading="eager"  /> </div>
     <div class="container">
         <h1 data-aos="fade-up" data-aos-delay="200" data-aos-duration="1000">{singlePost.title}</h1>
     </div>
