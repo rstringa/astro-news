@@ -101,8 +101,9 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
 
 
 
-<script>
+<script >
     import Swiper from 'swiper/bundle';
+    document.addEventListener('astro:page-load', () => {
      const swiper = new Swiper('.swiper-1', {
   
         slidesPerView: 4,
@@ -127,4 +128,5 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
         draggable: true,
       } 
      })
+    });
 </script>

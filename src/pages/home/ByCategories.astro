@@ -48,6 +48,7 @@ import { categoriesListData } from "@data/getCategories.js";
 </section>
 
 <script>
+  document.addEventListener('astro:page-load', () => {
   const categoryItems = document.querySelectorAll(
     ".categories-list .category-item"
   );
@@ -74,6 +75,7 @@ import { categoriesListData } from "@data/getCategories.js";
       });
     });
   });
+});
 </script>
 
 <style is:inline>

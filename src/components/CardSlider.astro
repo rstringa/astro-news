@@ -123,6 +123,7 @@ const {width=240} = Astro.props;
 
 <script>
     import Swiper from 'swiper/bundle';
+    document.addEventListener('astro:page-load', () => {
      const swiper = new Swiper('.swiper-cards', {
         effect: 'cards',
         grabCursor: true,
@@ -132,6 +133,6 @@ const {width=240} = Astro.props;
             disableOnInteraction: false,
             pauseOnMouseEnter: true,
         },
-
+    })
      })
 </script>
