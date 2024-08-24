@@ -81,7 +81,7 @@ const {slug} = Astro.params;
         display: grid;
         place-content: center;
         overflow: hidden;
-        height: 45vh;
+        height: 55vh;
 
         animation: adjust-header linear both;
         animation-timeline: scroll();
@@ -173,6 +173,10 @@ const {slug} = Astro.params;
         & img {
             max-height: 50vh;
             object-fit: cover;
+            view-timeline-name: --image-timeline;
+            animation: slide-fadein both;
+            animation-timeline: --image-timeline;
+            animation-range: 200px contain 20%;
         }
     }
 
@@ -186,6 +190,13 @@ const {slug} = Astro.params;
         100% {
             filter: blur(5px);
         }
+    }
+    @keyframes slide-fadein {
+        from {
+            opacity: 50%;
+            transform: translateY(10vh);
+        }
+        
     }
 
 </style>    
