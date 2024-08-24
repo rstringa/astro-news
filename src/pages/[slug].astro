@@ -81,6 +81,7 @@ const {slug} = Astro.params;
         display: grid;
         place-content: center;
         overflow: hidden;
+        height: 45vh;
 
         animation: adjust-header linear both;
         animation-timeline: scroll();
@@ -116,7 +117,7 @@ const {slug} = Astro.params;
         & h1 {
                 color:#f9f9f9;
                 font-size: clamp(2.5rem, 5vw, 5rem);
-                margin: 15vh 0;
+                /* margin: 15vh 0; */
                 max-width: 990px;
                 text-align: center;
                 text-wrap: balance;
@@ -140,12 +141,20 @@ const {slug} = Astro.params;
         background-color: #fff;
         position: relative;
         z-index: 1;
-
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap:8px;
+            align-items: center;
+        }
         & p {
             margin: 0 12px 0 0;
             color:var(--grey-1);
             display: flex;
             align-items: center;
+            @media (max-width: 768px) {
+                margin: 0;
+
+            }
             & span {
                 line-height: 0 4px;
             } 
