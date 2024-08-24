@@ -2,6 +2,7 @@
 // import { SEO } from "astro-seo";
 import Footer from "@components/Footer.astro";
 import Header from "@components/Header.astro";
+import {ViewTransitions} from 'astro:transitions';
 import '@fontsource-variable/public-sans';
 import 'aos/dist/aos.css'; 
 import '@assets/css/global.css';
@@ -25,6 +26,7 @@ const {featuredImage} = Astro.props;
     <meta name="description" content="Astro and WordPress working together" />
     <meta name="generator" content={Astro.generator} />
     <link rel="prefetch" href={featuredImage} as="image">
+    <ViewTransitions />
   </head>
 
   <body>

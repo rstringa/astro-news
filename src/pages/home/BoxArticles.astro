@@ -23,7 +23,7 @@ const { first, last, type="card" } = Astro.props;
         let categorySlug = postsData[index]?.categories?.nodes[0]?.slug;
         let categoryName = postsData[index]?.categories?.nodes[0]?.name;
         let categoryId = postsData[index]?.categories?.nodes[0]?.databaseId;
-       
+        let slug = postsData[index]?.slug;
         
 
         if (index >= (first-1) && last && index < last) {
@@ -36,7 +36,10 @@ const { first, last, type="card" } = Astro.props;
           `note-${index}`,
           ...categoryIds.map(id => `cat-${id}`),
         ].join(' ')
-      }>
+      }
+      
+      
+      >
           {trend.featuredImage && trend.featuredImage.node.sourceUrl ? (
           <a href=`/${trend.slug}`>
           <Image
@@ -45,6 +48,7 @@ const { first, last, type="card" } = Astro.props;
               alt={trend.title}
               width="800"
               height="600"
+              transition:name=`image-${slug}`
           />
           </a>
           ) : (
