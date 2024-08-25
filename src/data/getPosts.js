@@ -27,6 +27,7 @@ async function getTrending() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "Cache-Control": "public, maxage=60, stale-while-revalidate=30",
     },
     body: JSON.stringify({ query }),
   });
