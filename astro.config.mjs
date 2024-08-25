@@ -8,6 +8,10 @@ import react from "@astrojs/react";
 export default defineConfig({
   prefetch: true,
   output: "server",
+  // headers: {
+  //   "Access-Control-Allow-Origin": "*",
+  //   "access-control-max-age" : "300"
+  // },
   adapter: vercel()
   // image: {
   //   remotePatterns: [{ protocol: "https" }],
