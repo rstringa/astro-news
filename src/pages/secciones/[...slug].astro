@@ -1,0 +1,69 @@
+---
+import Layout from "@layouts/Layout.astro";
+import fallback from "@assets/images/fallback.png";
+import { Image } from 'astro:assets';
+import { getPostsInCategories } from "@data/getPostsInCategories.js";
+
+const categorySlug = Astro.params.slug;
+
+async function load() {
+  const data = await getPostsInCategories(categorySlug); // Call the function
+  const postsData = data.data.posts.nodes;
+  const categoryData = data.data.categories.edges[0].node;
+
+  return { postsData, categoryData }; // Return the fetched data
+}
+
+const { postsData, categoryData } = await load();
+---
+<Layout title={`Sección ${categorySlug}`}>
+  <header>
+    <div class="container">
+    <h1>{categoryData.name}</h1>
+  </div>
+  </header>
+
+  <div class="container">
+    {postsData.map((post, index) => {
+      const { title, slug, categories, featuredImage } = post;
+      const category = categories.nodes[0];
+      const { databaseId: categoryId, slug: categorySlug, name: categoryName } = category;
+      const type = "card";
+
+      return (
+        <article class={`${type}-note note-${index} cat-${categoryId}`}>
+          <a href={`/${slug}`}>
+            {featuredImage && featuredImage.node.sourceUrl ? (
+              <Image
+                class="zoomIn"
+                src={featuredImage.node.sourceUrl}
+                alt={title}
+                width="800"
+                height="600"
+              />
+            ) : (
+              <img
+                src={fallback.src}
+                width={fallback.width}
+                height={fallback.height}
+                alt="Fallback"
+              />
+            )}
+          </a>
+          <div class="text">
+            <div class="label-box">
+              {categories.nodes.map((category) => (
+                <a href={`/secciones/${category.slug}`}>
+                  <h4 class="label">{category.name}</h4>
+                </a>
+              ))}
+            </div>
+            <h2 class="title">
+              <a href={slug}>{title}</a>
+            </h2>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+</Layout>

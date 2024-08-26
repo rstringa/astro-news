@@ -1,3 +1,196 @@
 ---
+import Layout from "@layouts/Layout.astro";
+import {categoriesListData} from "@data/getCategories.js";
 ---
-Secciones
+
+<Layout title="Nuestras Secciones">
+
+    <nav class="categories-list">
+        <div class="swiper swiper-categories-list">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <div
+                class="category-item is-active"
+                data-category="all"
+              >
+                Todas
+              </div>
+            </div>
+            {categoriesListData.map((category) => (
+              <div class="swiper-slide">
+                <div
+                  class="category-item"
+                  data-category={`cat-${category.databaseId}`}
+                >
+                  {category.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+</Layout>
+
+<script>
+    document.addEventListener('astro:page-load', () => {
+    const categoryItems = document.querySelectorAll(
+      ".categories-list .category-item"
+    );
+    const categoryNotes = document.querySelectorAll(".category-note");
+  
+    categoryItems.forEach((categoryItem) => {
+      categoryItem.addEventListener("click", (event) => {
+        categoryItems.forEach((item) => {
+          item.classList.remove("is-active");
+        });
+        categoryItem.classList.add("is-active");
+        const category = (categoryItem as HTMLElement).dataset.category || "all";
+  
+        // categoryNotes.forEach((note) => {
+        //   if (category === "all") {
+        //     note.classList.remove("is-invisible");
+        //     return;
+        //   }
+        //   if (note.classList.contains(category)) {
+        //     note.classList.remove("is-invisible");
+        //   } else {
+        //     note.classList.add("is-invisible");
+        //   }
+        // });
+      });
+    });
+  });
+  </script>
+
+<style is:inline>
+    .categories-list {
+      padding: 12px 24px 16px 24px;
+      border-bottom: 1px solid #e5e5e5;
+      border-radius: 32px;
+      margin-bottom: 28px;
+      box-shadow: 13px 20px 20px rgb(166 164 164 / 15%);
+  
+      & .swiper-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+  
+      & .swiper-slide {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: fit-content;
+      }
+  
+      & .category-item {
+        --spacing: 28px;
+        cursor: pointer;
+        text-align: center;
+        width: fit-content;
+        padding: 8px 0px;
+        border-radius: 28px;
+  
+        padding: 8px var(--spacing);
+        transition: background 0.25s ease-in-out;
+  
+        &:hover {
+          background: color-mix(in srgb, var(--primary) 10%, #fff 90%);
+          padding: 8px var(--spacing);
+        }
+  
+        &.is-active {
+          background: var(--primary);
+          color: #fff;
+          padding: 8px var(--spacing);
+        }
+      }
+    }
+  
+    .outer-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+      gap: 32px;
+    }
+  
+    .col-left {
+      h2 {
+        margin-bottom: 32px;
+      }
+  
+      & .inner-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+  
+        & .category-note {
+          position: relative;
+          opacity: 1;
+          display: block;
+          transition: all 0.5s;
+          @starting-style {
+            opacity:0;
+          }
+          
+  
+          &.is-invisible {
+            opacity: 0;
+            display: none;
+            transition:all 0.5s ease,
+            display 0.5s allow-discrete;
+          }
+  
+          & img {
+            border-radius: 16px;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+          }
+  
+          & .text {
+            background: #fff;
+            padding: 28px 32px 16px 0;
+            margin-top: -28%;
+            position: relative;
+            z-index: 1;
+            width: 80%;
+            border-radius: 0 8px 0 0;
+            transform: translateY(0px);
+            transition: all 0.5s ease-in-out;
+  
+            & .title {
+              font-size: 18px;
+              line-height: 1.3333;
+              font-weight: 600;
+              color: #000;
+            }
+          }
+  
+          &:hover {
+            & .text {
+              transform: translateY(8px);
+            }
+          }
+        }
+      }
+    }
+  
+    .col-right {
+      & .cards {
+        width: 100%;
+        padding: 32px;
+      }
+  
+      & .h3 {
+        text-align: center;
+        font-size: 20px;
+        color: var(--grey-2);
+        font-weight: 600;
+        transform: translateY(16px);
+        width: fit-content;
+        padding: 4px 24px;
+        margin: auto;
+        margin-bottom: 29px;
+        margin-top:86px;
+      }
+    }
+  </style>
