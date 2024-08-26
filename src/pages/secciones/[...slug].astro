@@ -15,6 +15,7 @@ async function load() {
 }
 
 const { postsData, categoryData } = await load();
+console.log(categoryData)
 ---
 <Layout title={`Sección ${categorySlug}`}>
   <header>
@@ -59,7 +60,7 @@ const { postsData, categoryData } = await load();
               ))}
             </div>
             <h2 class="title">
-              <a href={slug}>{title}</a>
+              <a href=`/${slug}`>{title}</a>
             </h2>
           </div>
         </article>
@@ -67,3 +68,33 @@ const { postsData, categoryData } = await load();
     })}
   </div>
 </Layout>
+<style>
+header {
+  background-color: var(--primary);
+  color: #fff;
+  margin-bottom: 24px;
+}
+.container {
+  
+}
+.card-note {
+  display: grid;
+  grid-template-columns:250px 1fr;
+  gap:24px;
+  margin-bottom: 24px;
+  & img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    aspect-ratio: 18 / 12;
+    object-fit: cover;
+  }
+  & .text {
+    max-width: 50ch;
+    & .title {
+      text-wrap: balance;
+      line-height: 1.15;
+  }
+} 
+}
+</style>
