@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1);
+console.log(currentPath);
 ---
 
 <div class="header-bottom">
@@ -15,7 +16,7 @@ const currentPath = pathname.slice(1);
           </li>
           <li>
             <a data-astro-prefetch
-              class={currentPath === "secciones" ? "is-active" : ""}
+              class={currentPath.includes("secciones") ? "is-active" : ""}
               href="/secciones">Secciones</a>
           </li>
           <li>
