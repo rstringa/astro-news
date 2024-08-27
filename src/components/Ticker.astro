@@ -30,6 +30,9 @@ import "swiper/css/bundle";
       .container {
         display: flex;
         align-items: center;
+        @media (max-width: 767px) {
+          
+        }
       }
       & .title {
         padding: 4px 12px;
@@ -39,6 +42,10 @@ import "swiper/css/bundle";
         color:#fff;
         transform: skewX(-8.5deg);
         margin-left: 4px;
+        @media (max-width: 767px) {
+          font-size: 14px;
+          margin-left: 0;
+        }
       }
       & .ticker-box {
         width: 100%;
@@ -46,6 +53,19 @@ import "swiper/css/bundle";
           font-size: 1rem;
           color: var(--grey-2);
           margin: 0;
+        }
+        @media (max-width: 767px) {
+          & .swiper-wrapper {
+              justify-content: center;
+              & .swiper-slide {
+                align-self: center;
+                margin-left: 12px;
+                & p {
+                  font-size: 13px;
+                  line-height: 1.15;
+                }
+              }
+          }
         }
       }
     }

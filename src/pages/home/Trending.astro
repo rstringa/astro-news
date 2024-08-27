@@ -33,6 +33,9 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
       grid-template-columns: 2fr 1fr;
       gap: 32px;
       padding: 0;
+      @media (max-width: 767px) {
+        
+      }
     }
 
     .col-left {
@@ -40,6 +43,7 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto 1fr;
       gap: 24px;
+ 
       & .trending-note {
         position: relative;
       
@@ -59,6 +63,9 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
       }
       .trending-note.note-0 {
         grid-column: 1/4;
+        @media (max-width: 767px) {
+
+        }
         & a {
             margin-bottom: 0;
         }
@@ -110,7 +117,21 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
          .label {
             margin-bottom: 0;
          }
+         @media (max-width: 767px) {
+ 
+            & .text {
+            }
+            & img {
+              
+            }
+            & .title {
+            }
+            .label {
+                margin-bottom: 0;
+            }
+        }
       }
+     
     }
     .col-right {
       & .trending-note {
@@ -120,6 +141,9 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
         align-items: stretch;
         border-bottom: 1px solid #eee;
         padding: 20px 0;
+        @media (max-width: 767px) {
+   
+        }
         &:first-child {
           padding-top: 0;
         }
@@ -143,4 +167,40 @@ import BoxArticles from "@pages/home/BoxArticles.astro";
       }
     }
   }
+
+  @media (max-width: 767px) {
+     
+    .trending {
+      & .container {
+        grid-template-columns: 1fr;
+        grid-auto-flow: row;
+      }
+     .col-left {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      grid-auto-flow: row;
+      & .trending-note {
+          grid-column: auto!important;
+        } 
+      & .trending-note:not(.note-0) {
+        display: grid;
+        grid-template-columns: 125px 1fr;
+        gap:16px;
+        align-items: start;
+        & a:has(img) {
+          display: block;
+        }
+        & img {
+              width: 100%;
+              height: auto!important;
+              border-radius: 8px;
+              aspect-ratio: 18 / 12;
+              object-fit: cover;
+        }
+      }  
+     }
+     
+    }
+    }
+
 </style>
