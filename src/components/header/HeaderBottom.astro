@@ -20,7 +20,7 @@ const currentPath = pathname.slice(1);
             <a
               data-astro-prefetch
               class={currentPath.includes("secciones") ? "is-active" : ""}
-              href="#">Secciones</a
+              href="#">Secciones <Icon name="tabler:chevron-down" class="menu-icon"></a
             >
             <ul class="sub-menu">
               <li><a href="/secciones/consejos">Consejos</a></li>
@@ -79,6 +79,9 @@ const currentPath = pathname.slice(1);
         display: flex;
         & li {
           position: relative;
+          .menu-icon {
+            transform: translate(2px, 3px);
+          }
           & .sub-menu {
             --ancho: display: flex;
             flex-direction: column;

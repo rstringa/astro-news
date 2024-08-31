@@ -1,0 +1,131 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Contactanos">
+    <div class="container">
+<form id="contact-form">
+    <div class="field">
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="form-name"  placeholder="Martin" required/>
+    </div>
+    <div class="field">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="form-email"  placeholder="email@address.com" required/>
+     </div>
+     
+     <div class="field">
+    <label for="intereses">Intereses:</label>
+    <label for="interes-1">
+      <input type="checkbox" name="form-intereses[]" id="interes-1" value="interes 1" tabindex="">
+      Interes 1
+    </label>
+    <label for="interes-2">
+      <input type="checkbox" name="form-intereses[]" id="interes-2" value="interes 2" tabindex="">
+      Interes 2
+    </label>
+    <label for="interes-3">
+      <input type="checkbox" name="form-intereses[]" id="interes-3" value="interes 3" tabindex="">
+      Interes 3
+    </label>
+     </div>
+     <div class="field">
+    <label for="message">Mensaje:</label>
+    <textarea id="message" name="form-message" placeholder="Tu mensaje..."></textarea>
+     </div>   
+    <button type="submit">Enviar</button>
+  </form>
+</div>
+<div class="is-loading"></div>
+</Layout>
+
+<style>
+:root {
+    --clr-success: hsl(143, 100%, 26%);
+    --clr-warning: hsl(43, 100%, 66%);
+    --clr-error: hsl(348, 55%, 49%);
+  }
+body.loading {
+    background-color: #000;
+}  
+label {
+    display: block;
+}
+.field {
+    margin-bottom: 20px;
+}
+input, textarea{
+  outline: 1px solid hsl(201, 11%, 31%);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+:is(input, textarea):not(:placeholder-shown):valid {
+  outline-color: var(--clr-success);
+}
+
+:is(input, textarea):not(:placeholder-shown):invalid {
+  outline-color: var(--clr-error);
+}
+
+:is(input, textarea):focus:invalid {
+  outline-color: var(--clr-warning)
+}
+
+.is-loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  animation: fade-in 0.3s;
+   &.is-visible {
+     display: block;
+   }
+}
+
+</style>
+
+  <script is:inline>
+
+    let isSubmitting = false;
+    const form = document.getElementById('contact-form');
+    const isLoading = document.querySelector('.is-loading');
+    
+    form?.addEventListener('submit', handleSubmit);
+
+    async function handleSubmit(event) {
+        event.preventDefault();   
+        isLoading?.classList.add('is-visible');
+
+      if (isSubmitting) return;
+        isSubmitting = true;
+
+        const formData = new FormData(event.target);
+        const data = Object.fromEntries(formData.entries());
+        
+
+      try {
+        const response = await fetch('http://localhost/wp-json/contact-form-7/v1/contact-forms/84/feedback', {
+          method: 'POST',
+          body: formData,
+        });
+  
+        if (response.ok) {
+          console.log('Formulario enviado correctamente');
+          
+          // Mostrar mensaje de éxito al usuario
+        } else {
+          console.error('Error al enviar el formulario');
+          // Mostrar mensaje de error al usuario
+        }
+      } catch (error) {
+        console.error('Error de red:', error);
+      } finally {
+        isSubmitting = false;
+        isLoading.classList.remove('is-visible');
+      }
+    }
+  </script>

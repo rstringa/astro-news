@@ -7,8 +7,6 @@ export default function BlogPosts({ first, last, type = "card" }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-
-
   useEffect(() => {
    
     const fetchData = async () => {
@@ -20,7 +18,14 @@ export default function BlogPosts({ first, last, type = "card" }) {
         setLoading(false);
       }
     };
+
+    
     fetchData();
+    const intervalId = setInterval(fetchData, 60 * 1000);
+
+    // Clean up the interval when the component unmounts to prevent memory leaks
+    return () => clearInterval(intervalId);
+
   }, []);
 
   return (

@@ -1,36 +1,26 @@
 ---
 import BlogPosts from "@components/BlogPosts.jsx";
 ---
+
 <section class="section trending">
   <div class="container">
     <div class="col-left">
-     <BlogPosts
-        first={1}
-        last={4}
-        type="card"
-        client:load
-     />
-<!--       
+      <BlogPosts first={1} last={4} type="card" client:load />
+      <!--       
      <BoxArticles
         first={1}
         last={4}
         type="trending"
      />   -->
-
     </div>
 
     <div class="col-right">
-        <!-- <BoxArticles
+      <!-- <BoxArticles
         first={5}
         last={10}
         type="trending" 
         /> -->
-        <BlogPosts
-        first={8}
-        last={9}
-        type="card"
-        client:load
-     />
+      <BlogPosts first={8} last={9} type="card" client:load />
     </div>
   </div>
 </section>
@@ -50,7 +40,6 @@ import BlogPosts from "@components/BlogPosts.jsx";
       grid-template-columns: repeat(3, 1fr);
       grid-template-rows: auto 1fr;
       gap: 24px;
-   
     }
     .col-right {
       & .trending-note {
@@ -63,6 +52,7 @@ import BlogPosts from "@components/BlogPosts.jsx";
         &:first-child {
           padding-top: 0;
         }
+      }
     }
   }
 </style>
